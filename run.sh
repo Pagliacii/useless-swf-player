@@ -24,10 +24,6 @@ THREADS=2
 while [ $# -ne 0 ] && [ "$1" != "" ]; do
     PARAM="$(printf "%s\n" "$1" | awk -F= '{print $1}')"
     VALUE="$(printf "%s\n" "$1" | sed 's/^[^=]*=//g')"
-    if [ "$VALUE" = "$PARAM" ] && [ $# -gt 1 ]; then
-        shift
-        VALUE=$1
-    fi
 
     case $PARAM in
         --help)
@@ -43,15 +39,31 @@ while [ $# -ne 0 ] && [ "$1" != "" ]; do
             PORT=9000
             ;;
         --processes)
+            if [ "$VALUE" = "$PARAM" ]; then
+                shift
+                VALUE=$1
+            fi
             PROCESSES=$VALUE
             ;;
         --threads)
+            if [ "$VALUE" = "$PARAM" ]; then
+                shift
+                VALUE=$1
+            fi
             THREADS=$VALUE
             ;;
         -h|--host)
+            if [ "$VALUE" = "$PARAM" ]; then
+                shift
+                VALUE=$1
+            fi
             HOST=$VALUE
             ;;
         --port)
+            if [ "$VALUE" = "$PARAM" ]; then
+                shift
+                VALUE=$1
+            fi
             PORT=$VALUE
             ;;
         *)
