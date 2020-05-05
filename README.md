@@ -22,6 +22,18 @@ $ FLASK_APP=wsgi.py pipenv run flask db upgrade
 $ ./run.sh -p
 ```
 
+## Screenshots
+
+![screenshot1](./assets/screenshot1.png)
+
+![screenshot2](./assets/screenshot2.png)
+
+![screenshot3](./assets/screenshot3.png)
+
+![screenshot4](./assets/screenshot4.png)
+
+![screenshot5](./assets/screenshot5.png)
+
 ## Development
 
 ### Commands
