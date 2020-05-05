@@ -1,0 +1,78 @@
+{% from "macros.html" import powered_icon with context %}
+
+{% block doc %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+{% block html %}
+
+<head>
+    {% block head %}
+    {% block meta %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% endblock meta %}
+
+    <title>
+        {% block title %}
+        {% if title %}
+        {{ title }} - Useless
+        {% else %}
+        Useless SWF Player
+        {% endif %}
+        {% endblock title %}
+    </title>
+
+    {% block style %}
+    <link rel="stylesheet" href="/static/css/tailwind.css">
+    {% endblock style %}
+
+    <link rel="shortcut icon" href="/static/img/gear.svg">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    {% endblock head %}
+</head>
+
+<body class="flex flex-col bg-gray-300 min-h-screen">
+    {% block body %}
+    <header>
+        {% block navbar %}
+        {% endblock navbar %}
+    </header>
+    <main class="flex-grow">
+        {% block content %}
+        <div class="flex flex-col justify-center items-center">
+            {% block content_header %}
+            <div class="flex items-center mt-8 mb-8">
+                <img class="h-16 pr-2" src="/static/img/useless-logo.svg" alt="The logo image that contains a gear and the text 'useless'">
+                <h1 class="flex items-baseline mb-2 text-5xl text-gray-800 font-bold">{% block content_title %}{% endblock content_title %}</h1>
+            </div>
+            {% endblock content_header %}
+            {% block content_body %}
+            {% endblock content_body %}
+        </div>
+        {% endblock content %}
+    </main>
+    {% block footer %}
+    <footer class="bg-gray-600 h-24">
+        <div class="flex flex-col justify-center">
+            <div class="mt-2 flex justify-center items-center">
+                <span class="text-4xl">Powered by </span>
+                {{ powered_icon("https://datatables.net/", "d-box.svg", "A plug-in for the jQuery Javascript library.", "datatables") }}
+                {{ powered_icon("https://github.com/pallets/flask", "f-box.svg", "Flask is a lightweight WSGI web application framework.", "flask") }}
+                {{ powered_icon("https://jquery.com/", "j-box.svg", "jQuery is a fast, small, and feature-rich JavaScript library.", "jQuery") }}
+                {{ powered_icon("https://jquerymodal.com/", "m-box.svg", "jQuery Modal is the easiest way to display modal windows with jQuery.", "jQuery Modal") }}
+                {{ powered_icon("https://github.com/ruffle-rs/ruffle", "r-box.svg", "A Flash Player emulator written in Rust.", "ruffle-rs") }}
+                {{ powered_icon("https://github.com/tailwindcss/tailwindcss", "t-box.svg", "A utility-first CSS framework for rapid UI development", "tailwindcss") }}
+            </div>
+            <p class="mt-1 text-center font-semibold text-gray-900">Copyright © 2020 <a class="underline" href="https://github.com/Pagliacii">Pagliacii</a> - All Rights Reserved.</p>
+        </div>
+    </footer>
+    {% endblock footer %}
+    {% block scripts %}
+    {% endblock scripts %}
+    {% endblock body %}
+</body>
+{% endblock html %}
+
+</html>
+{% endblock doc %}

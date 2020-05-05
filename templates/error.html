@@ -1,0 +1,44 @@
+{% from "macros.html" import span_error_code with context %}
+{% extends 'base.html' %}
+
+{% block style %}
+{# HTML Template by Colorlib #}
+
+<!-- Google font -->
+<link href="https://fonts.loli.net/css?family=Cabin:400,700" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Montserrat:900" rel="stylesheet">
+
+<!-- Custom stlylesheet -->
+<link type="text/css" rel="stylesheet" href="/static/css/error.css" />
+{{ super() }}
+{% endblock style %}
+
+{% block content %}
+<div id="error">
+	<div class="error">
+		<div class="error-code">
+			<h3>{% block error_title %}{% endblock error_title %}</h3>
+			<h1>{% block error_code %}{% endblock error_code %}</h1>
+		</div>
+		<h2>{% block error_hits %}{% endblock error_hits %}</h2>
+		<a id="home-btn" class="btn btn-primary inline-flex items-end" href="/">
+			<svg id="return-symbol" class="hidden h-4 w-4 fill-current mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+				<path d="M0 10a10 10 0 1 1 20 0 10 10 0 0 1-20 0zm2 0a8 8 0 1 0 16 0 8 8 0 0 0-16 0zm8-2h5v4h-5v3l-5-5 5-5v3z" /></svg>
+			Back to Homepage
+		</a>
+	</div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+	$("#home-btn").hover(
+		function () {
+			$("#return-symbol").show();
+		},
+		function () {
+			$("#return-symbol").hide();
+		}
+	);
+</script>
+{% endblock scripts %}

@@ -1,0 +1,9 @@
+{% macro powered_icon(link, image, descriptions, title="") %}
+<a class="pl-2" href="{{ link }}" target="_blank" title="{{ title }}">
+    <img class="h-10 w-10" src="/static/img/{{ image }}" alt="{{ descriptions }}">
+</a>
+{% endmacro %}
+
+{% macro span_error_code(code) %}
+<span>{{ code[0] }}</span><span>{{ code[1] }}</span><span>{{ code[2] }}</span>
+{% endmacro %}

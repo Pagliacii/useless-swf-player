@@ -1,0 +1,6 @@
+{% extends "error.html" %}
+
+{% block title %}404 Page not found{% endblock title %}
+{% block error_title %}Oops! Page not found{% endblock error_title %}
+{% block error_code %}{{ span_error_code("404") }}{% endblock error_code %}
+{% block error_hits %}We are sorry, but the page you requested was not found{% endblock error_hits %}

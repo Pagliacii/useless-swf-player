@@ -1,0 +1,6 @@
+{% extends "error.html" %}
+
+{% block title %}500 Internal Server Error{% endblock title %}
+{% block error_title %}Internal Server Error occurred!{% endblock error_title %}
+{% block error_code %}{{ span_error_code("500") }}{% endblock error_code %}
+{% block error_hits %}Hm... Unfortunately, the server crashed. Apologies.{% endblock error_hits %}

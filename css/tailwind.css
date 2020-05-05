@@ -1,0 +1,73 @@
+@tailwind base;
+
+@tailwind components;
+
+.btn {
+    @apply bg-gray-100 border border-gray-400 text-gray-800 inline-block px-3 py-2 rounded-lg text-sm tracking-wider font-bold;
+}
+
+.btn:focus {
+    @apply outline-none shadow-outline;
+}
+
+.btn:hover {
+    @apply bg-white;
+}
+
+.btn:active {
+    @apply bg-gray-500;
+}
+
+.btn-primary {
+    @apply bg-blue-500 text-gray-100;
+}
+
+.btn-primary:hover {
+    @apply bg-blue-400;
+}
+
+.btn-primary:active {
+    @apply bg-blue-600;
+}
+
+.btn-primary-disabled {
+    @apply bg-blue-500 text-gray-100 opacity-50 cursor-not-allowed;
+}
+
+.btn-primary-disabled:hover {
+    @apply bg-blue-400;
+}
+
+.btn-primary-disabled:active {
+    @apply bg-blue-600;
+}
+
+.btn-secondary {
+    @apply bg-teal-500 text-gray-100;
+}
+
+.btn-secondary:hover {
+    @apply bg-teal-400;
+}
+
+.btn-secondary:active {
+    @apply bg-teal-600;
+}
+
+.btn-danger {
+    @apply bg-red-500 text-gray-100;
+}
+
+.btn-danger:hover {
+    @apply bg-red-400;
+}
+
+.btn-danger:active {
+    @apply bg-red-600;
+}
+
+.table-head {
+    @apply bg-gray-200 text-gray-800;
+}
+
+@tailwind utilities;

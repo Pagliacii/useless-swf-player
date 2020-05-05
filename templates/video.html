@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Playing {{ data.name }}{% endblock title %}
+
+{% block head %}
+{{ super() }}
+<script>
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.RufflePlayer.config = {
+        autoplay: {
+            "default": "autodetect",
+        },
+    };
+</script>
+<script src="/static/js/ruffle/ruffle.js"></script>
+{% endblock head %}
+
+{% block content_title %}{{ data.name }}{% endblock content_title %}
+
+{% block content_body %}
+<object id="player" data="/files/{{ data.name }}" type="application/x-shockwave-flash" width="{{ data.frame.width }}" height="{{ data.frame.height }}">
+    <param name="movie" value="/files/{{ data.name }}" />
+</object>
+{% endblock content_body %}
