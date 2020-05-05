@@ -10,6 +10,7 @@ $(document).ready(() => {
         "pageLength": 10,
         "stripeClasses": ["stripe1", "stripe2"],
     });
+    $("#left-corner-btns").removeClass("hidden").insertBefore("#files_filter");
 });
 
 $("#refresh-btn").click(() => {
