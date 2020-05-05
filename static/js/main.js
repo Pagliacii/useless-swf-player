@@ -14,7 +14,7 @@ $(document).ready(() => {
 
 $("#refresh-btn").click(() => {
     document.getElementById("rotating").beginElement();
-    $.ajax("/files/all?update").always(() => {
+    $.ajax("/files/update").always(() => {
         window.location.reload();
     });
     return false;

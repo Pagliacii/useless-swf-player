@@ -23,19 +23,15 @@ from app.utils import scan_swfs_folder, get_file_accessed_time
 bp = Blueprint("bp", __name__, url_prefix="/files")
 
 
-@bp.route("/all", methods=["GET"])
+@bp.route("/update", methods=["GET"])
 def get_files_info():
-    if "update" in request.args:
-        try:
-            scan_swfs_folder(db, logger)
-        except Exception as e:
-            logger.error(f"Scanning swfs folder failed, caused by {e}")
-            return jsonify({"status": "failure", "reason": str(e)}), 422
+    try:
+        scan_swfs_folder(db, logger)
+    except Exception as e:
+        logger.error(f"Scanning swfs folder failed, caused by {e}")
+        return jsonify({"status": "failure", "reason": str(e)}), 422
 
-        return jsonify({"status": "ok"})
-
-    files = File.query.all()
-    return jsonify([f.to_json() for f in files])
+    return jsonify({"status": "ok"})
 
 
 @bp.route("/<path:file_name>", methods=["GET", "DELETE", "POST"])
