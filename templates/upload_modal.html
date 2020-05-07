@@ -1,0 +1,10 @@
+{% from 'macros.html' import modal %}
+
+{% call(is_first) modal("upload", "Upload") %}
+{% if is_first %}
+<small id="allowed_extensions" class="text-gray-600">Allowed extensions: .swf</small>
+<br>
+<small id="max_size" class="text-gray-600">Maximum size: 500MB</small>
+{% else %}
+{% endif %}
+{% endcall %}

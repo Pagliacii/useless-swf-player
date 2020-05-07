@@ -7,3 +7,22 @@
 {% macro span_error_code(code) %}
 <span>{{ code[0] }}</span><span>{{ code[1] }}</span><span>{{ code[2] }}</span>
 {% endmacro %}
+
+{% macro modal(id, ok_text="Submit", cancel_text="Cancel") %}
+<!-- {{ id.capitalize() }} modal -->
+<div id="{{ id.lower() }}-modal" class="modal bg-gray-200">
+    <div id="{{ id.lower() }}-modal-head" class="max-w-full border-b-2 border-gray-400">
+        <h2 class="text-2xl font-bold">{{ id.capitalize() }}</h2>
+    </div>
+    {{ caller(True) }}
+    <form action="#" id="{{ id.lower() }}-form" method="post" onsubmit="return false;">
+        <div id="{{ id.lower() }}-modal-body" class="flex items-center py-4">
+            {{ caller(False) }}
+        </div>
+        <div class="flex justify-end">
+            <button id="{{ id.lower() }}-{{ ok_text.lower() }}-btn" class="btn btn-primary-disabled">{{ ok_text.capitalize() }}</button>
+            <a class="btn ml-1" href="#" rel="modal:close">{{ cancel_text.capitalize() }}</a>
+        </div>
+    </form>
+</div>
+{% endmacro %}

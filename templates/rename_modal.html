@@ -1,0 +1,12 @@
+{% from 'macros.html' import modal %}
+
+{% call(is_first) modal("rename") %}
+{% if is_first %}
+<small id="reserved-chars" class="text-gray-600">
+    A file name can't contain any of the following characters: \/:*?"&lt;&gt;|
+</small>
+<br>
+<small id="max-length" class="text-gray-600">Maximum characters: 256</small>
+{% else %}
+{% endif %}
+{% endcall %}
