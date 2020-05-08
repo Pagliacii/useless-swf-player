@@ -1,10 +1,21 @@
 {% from 'macros.html' import modal %}
 
-{% call(is_first) modal("upload", "Upload") %}
+{% call(is_first) modal("upload", "Upload", is_file_upload=True) %}
 {% if is_first %}
-<small id="allowed_extensions" class="text-gray-600">Allowed extensions: .swf</small>
-<br>
-<small id="max_size" class="text-gray-600">Maximum size: 500MB</small>
+<div class="flex justify-between">
+    <small id="allowed_extensions" class="text-gray-600">Allowed extensions: .swf</small>
+    <br>
+    <small id="max_size" class="text-gray-600">Maximum size: 500MB</small>
+</div>
 {% else %}
+<div class="w-full flex flex-col justify-center">
+    <div class="h-12">
+        <label class="btn text-center w-full" for="file_uploads">Choose files to upload (SWF)</label>
+        <input class="opacity-0 w-0 h-0" type="file" id="file_uploads" name="file_uploads" required accept=".swf" multiple>
+    </div>
+    <div class="selected border border-gray-400 text-center bg-gray-100 w-full">
+        <p>No files currently selected for upload</p>
+    </div>
+</div>
 {% endif %}
 {% endcall %}
