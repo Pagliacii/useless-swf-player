@@ -1,0 +1,36 @@
+table.dataTable tbody tr {
+    background-color: #f7fafc;
+    color: #718096;
+}
+
+table.dataTable tbody tr:hover {
+    background-color: #cbd5e0 !important;
+}
+
+table.dataTable tbody tr:hover>.sorting_1 {
+    background-color: #cbd5e0;
+}
+
+table.dataTable tbody tr.stripe1 {
+    background-color: #edf2f7;
+}
+
+table.dataTable tbody tr.stripe2 {
+    background-color: #ffffff;
+}
+
+.file {
+    position: relative;
+    background: linear-gradient(to right, lightblue 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all 1s ease;
+}
+
+.file.done {
+    background: lightgreen;
+}
+
+.file.fail {
+    background: lightcoral;
+}

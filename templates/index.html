@@ -4,35 +4,16 @@
 <link href="https://cdn.bootcdn.net/ajax/libs/datatables/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="https://cdn.bootcdn.net/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.css" rel="stylesheet">
 {{ super() }}
-
-<style>
-    table.dataTable tbody tr {
-        background-color: #f7fafc;
-        color: #718096;
-    }
-
-    table.dataTable tbody tr:hover {
-        background-color: #cbd5e0 !important;
-    }
-
-    table.dataTable tbody tr:hover>.sorting_1 {
-        background-color: #cbd5e0;
-    }
-
-    table.dataTable tbody tr.stripe1 {
-        background-color: #edf2f7;
-    }
-
-    table.dataTable tbody tr.stripe2 {
-        background-color: #ffffff;
-    }
-</style>
+<link rel="stylesheet" href="/static/css/main.css">
 {% endblock style %}
 
 {% block head %}
 {{ super() }}
 <script src="https://cdn.bootcdn.net/ajax/libs/datatables/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/blueimp-file-upload/10.17.0/js/vendor/jquery.ui.widget.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/blueimp-file-upload/10.17.0/js/jquery.iframe-transport.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/blueimp-file-upload/10.17.0/js/jquery.fileupload.min.js"></script>
 {% endblock head %}
 
 {% block content_title %}SWF Player{% endblock content_title %}
