@@ -1,6 +1,7 @@
 $(function () {
+    let table = null;
     $(document).ready(() => {
-        $("#files").DataTable({
+        table = $("#files").DataTable({
             "columnDefs": [{
                 "targets": 4,
                 "orderable": false,
@@ -24,11 +25,15 @@ $(function () {
 
     $(".remove-btn").click(function () {
         let filename = $(this).data("filename");
+        let that = $(this);
         $.ajax({
             url: `/files/${filename}`,
             type: "DELETE",
-        }).always(() => {
-            window.location.reload(true);
+        }).done(function () {
+            table
+                .row(that.parents("tr"))
+                .remove()
+                .draw(false);  // false means not redirect to the first page
         });
     });
 });
