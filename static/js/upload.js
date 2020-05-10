@@ -57,7 +57,7 @@ $(function () {
                         document.cookie = `filesize=${file.size}`;
                         data.submit();
                     }))
-                    .append($('<a class="float-right">&times;</a>').on("click", () => {
+                    .append($('<a class="float-right cancel">&times;</a>').on("click", () => {
                         data.abort();
                         that.remove();
                         if (selected.children().length == 0) {
@@ -122,6 +122,7 @@ $(function () {
     });
 
     modal.on("modal:close", function () {
+        $("a.cancel").click();
         $(this).hide();
         reset();
     });
