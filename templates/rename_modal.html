@@ -1,0 +1,14 @@
+{% from 'macros.html' import modal %}
+
+{% call(section) modal("rename") %}
+{% if section.lower() == "conditions" %}
+<small id="reserved-chars" class="text-gray-600">
+    A file name can't contain any of the following characters: \/:*?"&lt;&gt;|
+</small>
+<br>
+<small id="max-length" class="text-gray-600">Maximum characters: 256</small>
+{% elif section.lower() == "buttons_group" %}
+<button id="rename-submit-btn" class="btn btn-primary-disabled">Submit</button>
+{% else %}
+{% endif %}
+{% endcall %}

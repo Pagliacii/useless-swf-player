@@ -1,0 +1,25 @@
+{% from 'macros.html' import modal %}
+
+{% call(section) modal("upload", is_file_upload=True) %}
+{% if section.lower() == "conditions" %}
+<div class="flex justify-between">
+    <small id="allowed_extensions" class="text-gray-600">Allowed extensions: .swf</small>
+    <br>
+    <small id="max_size" class="text-gray-600">Maximum size: 500MB</small>
+</div>
+{% elif section.lower() == "form_body" %}
+<div class="w-full flex flex-col justify-center">
+    <div class="h-12">
+        <label class="btn text-center w-full" for="file_uploads">Choose files to upload (SWF)</label>
+        <input class="opacity-0 w-0 h-0" type="file" id="file_uploads" name="files[]" data-url="/files/upload" required accept=".swf" multiple>
+    </div>
+    <div class="selected border border-gray-400 text-center bg-gray-100 w-full">
+        <p>No files currently selected for upload</p>
+    </div>
+</div>
+{% elif section.lower() == "buttons_group" %}
+<button id="upload-upload-btn" class="btn btn-primary-disabled" disabled>Upload</button>
+<button id="upload-loading-btn" class="btn btn-secondary hidden" disabled>Uploading...</button>
+{% else %}
+{% endif %}
+{% endcall %}

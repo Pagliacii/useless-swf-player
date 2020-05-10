@@ -7,3 +7,22 @@
 {% macro span_error_code(code) %}
 <span>{{ code[0] }}</span><span>{{ code[1] }}</span><span>{{ code[2] }}</span>
 {% endmacro %}
+
+{% macro modal(id, cancel_text="Cancel", is_file_upload=False) %}
+<!-- {{ id.capitalize() }} modal -->
+<div id="{{ id.lower() }}-modal" class="modal bg-gray-200">
+    <div id="{{ id.lower() }}-modal-head" class="max-w-full border-b-2 border-gray-400">
+        <h2 class="text-2xl font-bold">{{ id.capitalize() }}</h2>
+    </div>
+    {{ caller("conditions") }}
+    <form action="#" id="{{ id.lower() }}-form" method="post" onsubmit="return false;" {% if is_file_upload %}enctype="multipart/form-data" {% endif %}>
+        <div id="{{ id.lower() }}-modal-body" class="flex items-center py-4">
+            {{ caller("form_body") }}
+        </div>
+        <div class="flex justify-end">
+            {{ caller("buttons_group") }}
+            <a class="btn ml-1" href="#" rel="modal:close">{{ cancel_text.capitalize() }}</a>
+        </div>
+    </form>
+</div>
+{% endmacro %}

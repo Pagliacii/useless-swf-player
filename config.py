@@ -4,7 +4,7 @@
 Created Date:       2020-04-29 18:07:56
 Author:             Pagliacii
 Last Modified By:   Pagliacii
-Last Modified Date: 2020-04-30 12:12:08
+Last Modified Date: 2020-05-09 11:44:59
 Copyright © 2020-Pagliacii-MIT License
 """
 
@@ -21,6 +21,9 @@ class Config:
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOGFILE = os.path.join(root_dir, "app.log")
+    FILE_UPLOADS = os.path.join(root_dir, "swfs")
+    ALLOWED_FILE_EXTENSIONS = ["SWF"]
+    MAX_FILESIZE = 500 * 1024 * 1024  # 500MB
 
 
 class DevConfig(Config):
