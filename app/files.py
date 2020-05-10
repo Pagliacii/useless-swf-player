@@ -5,11 +5,12 @@
 Created Date:       2020-04-29 18:21:41
 Author:             Pagliacii
 Last Modified By:   Pagliacii
-Last Modified Date: 2020-05-10 11:16:05
+Last Modified Date: 2020-05-10 12:28:46
 Copyright © 2020-Pagliacii-MIT License
 """
 
 import os
+import re
 
 from flask import (
     abort, Blueprint, jsonify, request, Response, stream_with_context
@@ -108,11 +109,15 @@ def gen_filename(filename: str) -> str:
     """
     If filename was exist already, return a new name
     """
-    i = 1
+    regex = r"^(?P<name>.*?)_(?P<number>\d+)\.swf$"
     while os.path.exists(os.path.join(app.config["FILE_UPLOADS"], filename)):
-        name, ext = os.path.splitext(filename)
-        filename = f"{name}_{str(i)}{ext}"
-        i += 1
+        if matched := re.match(regex, filename):
+            name = matched.group("name")
+            number = int(matched.group("number")) + 1
+        else:
+            name, _ = os.path.splitext(filename)
+            number = 1
+        filename = f"{name}_{str(number)}.swf"
     return filename
 
 
