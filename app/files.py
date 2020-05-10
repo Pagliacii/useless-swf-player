@@ -5,19 +5,21 @@
 Created Date:       2020-04-29 18:21:41
 Author:             Pagliacii
 Last Modified By:   Pagliacii
-Last Modified Date: 2020-05-10 00:26:01
+Last Modified Date: 2020-05-10 11:16:05
 Copyright © 2020-Pagliacii-MIT License
 """
 
 import os
 
-from flask import abort, Blueprint, jsonify, request, Response, stream_with_context
+from flask import (
+    abort, Blueprint, jsonify, request, Response, stream_with_context
+)
 from loguru import logger
 from werkzeug.utils import secure_filename
 
 from app import db
 from app.models import File
-from app.utils import scan_swfs_folder, get_file_accessed_time
+from app.utils import scan_swfs_folder, get_file_accessed_time, get_file_info
 
 from flask import current_app as app
 
@@ -72,7 +74,7 @@ def get_file_contents(file_name):
 
         file_data.name = new_name
         file_data.path = new_path
-        file_data.accessed_time = get_file_accessed_time(os.stat(new_path))
+        file_data.accessed_time = get_file_accessed_time(new_path)
         db.session.commit()
         return jsonify({"status": "ok"})
 
@@ -136,12 +138,37 @@ def upload_new_file():
             logger.warning(reason)
             return jsonify({"status": "failure", "reason": reason}), 415
 
+        # 3. Saving file and updating database
         logger.debug(f"file: {file_uploads}, filesize: {file_size}")
         filename = secure_filename(file_uploads.filename)
         filename = gen_filename(filename)
-        file_uploads.save(os.path.join(app.config["FILE_UPLOADS"], filename))
-        logger.debug(f"file: {file_uploads.filename} saved as {filename}")
+        file_path = os.path.join(app.config["FILE_UPLOADS"], filename)
+
+        try:
+            file_uploads.save(file_path)
+        except Exception as e:
+            reason = f"File saving failed, caused by {e}"
+            logger.error(reason)
+            return jsonify({"status": "failure", "reason": reason}), 422
+
+        try:
+            db.session.add(File.from_file_info(get_file_info(file_path)))
+        except Exception as e:
+            db.session.rollback()
+            reason = f"Database updating failed, caused by {e}"
+            logger.error(reason)
+
+            try:
+                os.remove(file_path)
+            except Exception as e:
+                logger.warning(f"File removing failed, caused by {e}")
+
+            return jsonify({"status": "failure", "reason": reason}), 422
+        else:
+            db.session.commit()
+            logger.debug(f"file: {file_uploads.filename} saved as {filename}")
+
         return jsonify({"status": "ok"})
 
-    logger.info("There hasn't upload files")
+    logger.warning("There hasn't upload files")
     return jsonify({"status": "failure", "reason": "No file uploaded"})

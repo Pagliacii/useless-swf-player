@@ -5,7 +5,7 @@
 Created Date:       2020-04-29 17:27:04
 Author:             Pagliacii
 Last Modified By:   Pagliacii
-Last Modified Date: 2020-05-03 14:41:32
+Last Modified Date: 2020-05-10 11:00:27
 Copyright © 2020-Pagliacii-MIT License
 """
 
@@ -13,19 +13,28 @@ import os
 from datetime import datetime
 
 
-def get_file_created_time(file_stat):
+def get_file_created_time(file_path):
     return datetime.fromtimestamp(
-        file_stat.st_ctime, datetime.now().astimezone().tzinfo
+        os.path.getctime(file_path), datetime.now().astimezone().tzinfo
     ).isoformat()
 
 
-def get_file_accessed_time(file_stat):
+def get_file_accessed_time(file_path):
     return datetime.fromtimestamp(
-        file_stat.st_atime, datetime.now().astimezone().tzinfo
+        os.path.getatime(file_path), datetime.now().astimezone().tzinfo
     ).isoformat()
 
 
-def get_file_infos(directory):
+def get_file_info(file_path):
+    return {
+        "name": os.path.basename(file_path),
+        "created_time": get_file_created_time(file_path),
+        "accessed_time": get_file_accessed_time(file_path),
+        "path": file_path,
+    }
+
+
+def get_files_info(directory):
     directory_path = os.path.abspath(directory)
     if not os.path.isdir(directory_path):
         raise Exception(f"The argument isn't a directory: {directory=}")
@@ -35,13 +44,7 @@ def get_file_infos(directory):
             continue
 
         file_path = os.path.abspath(os.path.join(directory_path, filename))
-        file_stat = os.stat(file_path)
-        yield {
-            "name": filename,
-            "created_time": get_file_created_time(file_stat),
-            "accessed_time": get_file_accessed_time(file_stat),
-            "path": file_path
-        }
+        yield get_file_info(file_path)
 
 
 def scan_swfs_folder(database, logger):
@@ -51,7 +54,7 @@ def scan_swfs_folder(database, logger):
 
     counter = 0
     directory = os.path.abspath(os.path.join(__file__, '../..', 'swfs'))
-    for file_info in get_file_infos(directory):
+    for file_info in get_files_info(directory):
         try:
             new_file = File.from_file_info(file_info)
         except (FieldLacked, NotExpected) as e:

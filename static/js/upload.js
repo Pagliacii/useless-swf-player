@@ -11,6 +11,7 @@ $(function () {
     function reset() {
         selected.empty();
         selected.append(placeholder);
+        selected.data("failed", false);
 
         upload_btn.removeClass("btn-primary");
         upload_btn.addClass("btn-primary-disabled");
@@ -80,6 +81,8 @@ $(function () {
         fail: function (event, data) {
             if (data.errorThrown === 'abort') {
                 console.log("File upload has been canceled");
+            } else {
+                selected.data("failed", true);
             }
             data.context.addClass("fail");
         },
@@ -125,6 +128,9 @@ $(function () {
         $("a.cancel").click();
         $(this).hide();
         reset();
+        if (!selected.data("failed")) {
+            window.location.reload(true);
+        }
     });
 
     upload_btn.on("click", event => {
