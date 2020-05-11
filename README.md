@@ -34,6 +34,16 @@ $ ./run.sh -p
 
 ![screenshot5](./assets/screenshot5.png)
 
+![screenshot6](./assets/screenshot6.png)
+
+![screenshot7](./assets/screenshot7.png)
+
+![screenshot8](./assets/screenshot8.png)
+
+![screenshot9](./assets/screenshot9.png)
+
+![screenshot10](./assets/screenshot10.png)
+
 ## Development
 
 ### Commands
@@ -63,6 +73,14 @@ $ FLASK_APP=wsgi.py FLASK_ENV=development yarn run dev
     - `video.py`: `/video` Blueprint
 + `css/tailwind.css`: tailwindcss 文件
 + `static`: 静态文件目录
+    - `css`:
+        + `errors.css`: 错误页面使用的 CSS 文件
+        + `main.css`: 首页使用的 CSS 文件
+        + `tailwind.css`: tailwindcss 生成的 CSS 文件
+    - `js`:
+        + `main.js`: 主要逻辑
+        + `rename.js`: 重命名的 JavaScript 代码
+        + `upload.js`: 上传文件的 JavaScript 代码
 + `swfs`: SWF 文件目录
 + `templates`: 模版目录
     - `404.html`: 404 页面
@@ -71,6 +89,8 @@ $ FLASK_APP=wsgi.py FLASK_ENV=development yarn run dev
     - `error.html`: 错误页面的基础模板
     - `index.html`: 首页
     - `macros.html`: 自定义的 `Jinja` 宏
+    - `rename_modal.html`: 重命名的 Modal 页面
+    - `upload_modal.html`: 上传文件的 Modal 页面
     - `video.html`: 播放页面
 + `config.py`: Flask App 的配置文件
 + `tailwind.config.js`: tailwindcss 的配置文件
@@ -78,32 +98,43 @@ $ FLASK_APP=wsgi.py FLASK_ENV=development yarn run dev
 
 ### API
 
-+ `/`
++ `GET /`
     - 描述：首页
-    - 方法：GET
     - 参数：无
     - 响应：HTML
-+ `/files/update`
++ `GET /files/update`
     - 描述：重新扫描所有 SWF 文件并更新数据库
-    - 方法：GET
     - 参数：无
     - 响应：JSON `{ "status": "ok|failure", ["reason": "blablabla"]}`
-+ `/files/<path:filename>`
++ `GET /files/<path:filename>`
     - 描述：获取文件内容
-    - 方法：GET
     - 参数：无
     - 响应：文件流
-+ `/video/<int:file_id>`
++ `DELETE /files/<path:filename>`
+    - 描述：删除指定文件
+    - 参数：无
+    - 响应：JSON `{ "status": "ok|failure", ["reason": "blablabla"]}`
++ `POST /files/<path:filename>`
+    - 描述：重命名指定文件
+    - 参数：
+        + `filename`：新的文件名
+    - 响应：JSON `{ "status": "ok|failure", ["reason": "blablabla"]}`
++ `POST /files/upload`
+    - 描述：上传文件
+    - 参数：
+        + `files[]`：要上传的文件
+    - 响应：JSON `{ "status": "ok|failure", ["reason": "blablabla"]}`
++ `GET /video/<int:file_id>`
     - 描述：打开指定文件的播放页面
-    - 方法：GET
     - 参数：无
     - 响应：HTML
 
 ### Utils
 
-+ `get_file_created_time(file_stat: os:stat_result) -> str`: 获取 ISO 格式的文件创建时间
-+ `get_file_accessed_time(file_stat: os:stat_result) -> str`: 获取 ISO 格式的文件访问时间
-+ `get_file_infos(directory: str) -> Generator`: 遍历指定目录，并生成其下文件的相关信息
++ `get_file_created_time(file_path: str) -> str`: 获取 ISO 格式的文件创建时间
++ `get_file_accessed_time(file_path: str) -> str`: 获取 ISO 格式的文件访问时间
++ `get_file_info(file_path: str) -> Dict`: 获取指定路径文件的相关信息
++ `get_files_info(directory: str) -> Generator`: 遍历指定目录，并生成其下文件的相关信息
 + `scan_swfs_folder(database: SQLAlchemy, logger: logging.Logger)`: 扫描 `swfs` 目录并更新数据库
 + `swf_parser::Header(path: str)`: 获取 SWF 文件头
 
