@@ -41,7 +41,7 @@ tar --exclude="app.db" \
     --exclude="app.log" \
     --exclude="package.json" \
     --exclude="postcss.config.js" \
-    --exclude="tailwindcss.config.js" \
+    --exclude="tailwind.config.js" \
     --exclude="yarn.lock" \
     --exclude="yarn-error.log" \
     --exclude="__pycache__" \
@@ -50,4 +50,8 @@ tar --exclude="app.db" \
     --exclude="*.swf" \
     --exclude="releases" \
     --exclude="build.sh" \
+    --exclude=".gitignore" \
+    --exclude=".git" \
+    --exclude="./css" \
+    --exclude="assets" \
     -czvf ${DESTINATION} .
