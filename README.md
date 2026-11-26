@@ -8,6 +8,8 @@
 
 ## Usage
 
+本项目需要 Python 3.11 和 Yarn 1.22。Node.js 24 用于验证依赖安装和 CSS 构建。先运行 `yarn install --frozen-lockfile` 和 `pipenv sync --dev` 安装依赖。然后运行 `yarn run build:css` 生成样式文件。Flask 3 用 `FLASK_DEBUG=1` 开启调试模式。Tailwind 2 的主题配置保留了原来的配色、字号和按钮焦点样式。
+
 ```shell
 # 1. clone 仓库
 $ git clone https://github.com/Pagliacii/useless-swf-player
@@ -56,7 +58,7 @@ $ yarn run watch:css
 # 以开发模式启动服务器
 $ ./run.sh -d
 # 另一种启动开发模式服务器的方式
-$ FLASK_APP=wsgi.py FLASK_ENV=development yarn run dev
+$ FLASK_APP=wsgi.py FLASK_DEBUG=1 yarn run dev
 ```
 
 ### Structure
