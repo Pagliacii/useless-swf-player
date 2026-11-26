@@ -84,5 +84,5 @@ if [ "${MODE}" = "prod" ]; then
         --threads ${THREADS}
 else
     yarn run watch:css &
-    FLASK_APP=wsgi.py FLASK_ENV=development pipenv run flask run --host ${HOST} --port ${PORT}
+    FLASK_APP=wsgi.py FLASK_DEBUG=1 pipenv run flask run --host ${HOST} --port ${PORT}
 fi

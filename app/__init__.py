@@ -36,7 +36,7 @@ def create_app(mode="production"):
     migrate.init_app(app, db)
 
     # logging properties are defined in config.py
-    logger.start(
+    logger.add(
         app.config["LOGFILE"],
         colorize=True,
         level=app.config["LOG_LEVEL"],
